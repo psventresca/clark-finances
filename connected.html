@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><meta name="referrer" content="no-referrer">
+<title>Clark Dashboard Sync: connected</title>
+<style>body{max-width:680px;margin:0 auto;padding:24px 16px;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;color:#0b0b0b;background:#fcfcfb}
+@media (prefers-color-scheme:dark){body{color:#f0efec;background:#1a1a19}textarea{background:#0d0d0d;color:#f0efec}}
+textarea{width:100%;height:7em;font:13px ui-monospace,Consolas,monospace;padding:8px;border-radius:8px;border:1px solid rgba(128,128,128,.5)}
+button{font:inherit;padding:8px 14px;border-radius:8px;border:0;background:#2a78d6;color:#fff;cursor:pointer;margin-top:8px}</style>
+</head><body>
+<h1>Almost connected</h1>
+<p id="lead">Copy the line below and paste it into the window where you ran <code>qbo_connect.py</code>.</p>
+<textarea id="code" readonly></textarea>
+<button id="copy" type="button">Copy</button>
+<p><small>This code works once, expires in a few minutes, and is useless without the app's secret. Nothing on this page is sent anywhere.</small></p>
+<script>
+(function () {
+  var q = location.search.replace(/^\?/, "");
+  var box = document.getElementById("code");
+  if (!q) { document.getElementById("lead").textContent = "No connection answer here. Start again from qbo_connect.py."; }
+  box.value = q;
+  // keep the code out of the address bar and browser history
+  try { history.replaceState(null, "", location.pathname); } catch (e) {}
+  document.getElementById("copy").onclick = function () {
+    box.select();
+    (navigator.clipboard ? navigator.clipboard.writeText(box.value) : Promise.reject()).catch(function () { document.execCommand("copy"); });
+    this.textContent = "Copied";
+  };
+})();
+</script>
+</body></html>
